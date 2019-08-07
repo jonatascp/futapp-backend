@@ -15,21 +15,21 @@ const GameController = require('./controllers/GameControllers')
 //routes.get('/devs', DevController.index)
 //routes.post('/devs/:devId/likes', LikeController.store)
 //routes.post('/devs/:devId/dislikes', DislikeController.store)
-routes.get('/competitions', CompetitionController.index)
-routes.post('/competitions', CompetitionController.store)
-routes.put('/competitions', CompetitionController.update)
+routes.get('/api/competitions', CompetitionController.index)
+routes.post('/api/competitions', CompetitionController.store)
+routes.put('/api/competitions', CompetitionController.update)
 
-routes.get('/players/:competitionId', PlayerController.index)
-routes.post('/players', PlayerController.store)
-routes.put('/players', PlayerController.update)
+routes.get('/api/players/:competitionId', PlayerController.index)
+routes.post('/api/players', PlayerController.store)
+routes.put('/api/players', PlayerController.update)
 
-routes.get('/teams/:competitionId', TeamController.index)
-routes.post('/teams', TeamController.store)
-routes.put('/teams', TeamController.update)
+routes.get('/api/teams/:competitionId', TeamController.index)
+routes.post('/api/teams', TeamController.store)
+routes.put('/api/teams', TeamController.update)
 
-routes.get('/classifications/:competitionId', ClassificationController.index)
+routes.get('/api/classifications/:competitionId', ClassificationController.index)
 
-routes.get('/games/:competitionId', GameController.index)
-routes.post('/games', GameController.store)
+routes.get('/api/games/:competitionId', GameController.index)
+routes.post('/api/games', GameController.store)
 
 module.exports = routes
