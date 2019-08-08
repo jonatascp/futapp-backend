@@ -349,3 +349,52 @@ RESULT:
   "__v": 0
 }
 ```
+
+### Classificação do campeonato
+
+```bash
+GET: http://localhost:3333/api/classifications/{ID_COMPETITION}
+
+RESULT:
+[
+  {
+    "player": {
+      "name": "Jogador A",
+      "id": "5d4b25e45865c40227618440"
+    },
+    "games": 2,
+    "win": 1,
+    "lost": 0,
+    "draw": 1,
+    "gp": 7,
+    "gc": 5,
+    "points": 4
+  },
+  {
+    "player": {
+      "name": "Jogador C",
+      "id": "5d4b26d05865c40227618447"
+    },
+    "games": 1,
+    "win": 0,
+    "lost": 0,
+    "draw": 1,
+    "gp": 3,
+    "gc": 3,
+    "points": 1
+  },
+  {
+    "player": {
+      "name": "Jogador B",
+      "id": "5d4b25ed5865c40227618441"
+    },
+    "games": 1,
+    "win": 0,
+    "lost": 1,
+    "draw": 0,
+    "gp": 2,
+    "gc": 4,
+    "points": 0
+  }
+]
+```
