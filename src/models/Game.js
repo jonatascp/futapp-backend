@@ -8,19 +8,25 @@ const GameSchema = new Schema({
     players: [{
         player: {
             type: Schema.Types.ObjectId,
-            ref: 'Player'
+            ref: 'Player',
+            required: true
         },
         gol: {
             type: Number,
-            required: true,
+            required: false,
         },
         team: {
             type: Schema.Types.ObjectId,
-            ref: 'Team'
+            ref: 'Team',
+            required: false
         },
     }],
     valid: {
         type: Boolean,
+        required: true,
+    },
+    round: {
+        type: Number,
         required: true,
     }
 }, { 

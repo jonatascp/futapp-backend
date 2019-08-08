@@ -166,3 +166,186 @@ RESULT:
   "__v": 0
 }
 ```
+
+### Criar um time
+
+```bash
+POST: http://localhost:3333/api/teams
+
+BODY: 
+{
+	"name": "Barcelona",
+	"competitionId": "{ID_COMPETITION}"
+}
+
+RESULT:
+{
+  "_id": "5d4b260e5865c40227618443",
+  "name": "Barcelona",
+  "competition": "{ID_COMPETITION}",
+  "createdAt": "2019-08-07T19:27:10.117Z",
+  "updatedAt": "2019-08-07T19:27:10.117Z",
+  "__v": 0
+}
+```
+
+### Listagem de times
+
+```bash
+GET: http://localhost:3333/api/teams/{ID_COMPETITION}
+
+RESULT:
+[
+  {
+    "_id": "5d4b26045865c40227618442",
+    "name": "Real Madrid",
+    "competition": "{ID_COMPETITION}",
+    "createdAt": "2019-08-07T19:27:00.294Z",
+    "updatedAt": "2019-08-07T19:27:00.294Z",
+    "__v": 0
+  },
+  {
+    "_id": "5d4b260e5865c40227618443",
+    "name": "Barcelona",
+    "competition": "{ID_COMPETITION}",
+    "createdAt": "2019-08-07T19:27:10.117Z",
+    "updatedAt": "2019-08-07T19:27:10.117Z",
+    "__v": 0
+  }
+]
+```
+
+### Alterar um time
+
+```bash
+PUT: http://localhost:3333/api/teams
+
+BODY:
+
+{
+	"teamId": "{ID_TEAM}",
+	"name": "Barcelona"
+}
+
+RESULT:
+{
+  "_id": "5d4ad9d1b4384054e9574b52",
+  "name": "Barcelona",
+  "competition": "{ID_COMPETITION}",
+  "createdAt": "2019-08-07T14:01:53.759Z",
+  "updatedAt": "2019-08-07T14:03:19.553Z",
+  "__v": 0
+}
+```
+
+### Criar uma partida
+
+```bash
+POST: http://localhost:3333/api/games
+
+BODY: 
+{
+	"playerA": {
+		"id": "5d4b25e45865c40227618440"
+	},
+	"playerB": {
+		"id": "5d4b26d05865c40227618447"
+	},
+	"competitionId": "5d4b25c55865c4022761843f",
+	"round": 1
+}
+
+RESULT:
+{
+  "_id": "5d4c4f5de1e50d6176d2d06a",
+  "competition": "5d4b25c55865c4022761843f",
+  "players": [
+    {
+      "_id": "5d4c4f5de1e50d6176d2d06c",
+      "player": "5d4b25e45865c40227618440"
+    },
+    {
+      "_id": "5d4c4f5de1e50d6176d2d06b",
+      "player": "5d4b26d05865c40227618447"
+    }
+  ],
+  "valid": false,
+  "round": 1,
+  "createdAt": "2019-08-08T16:35:41.786Z",
+  "updatedAt": "2019-08-08T16:35:41.786Z",
+  "__v": 0
+}
+```
+
+### Listagem de partidas
+
+```bash
+GET: http://localhost:3333/api/games/{ID_COMPETITION}
+
+RESULT:
+[
+  {
+    "_id": "5d4c4f5de1e50d6176d2d06a",
+    "competition": "{ID_COMPETITION}",
+    "players": [
+      {
+        "_id": "5d4c4f5de1e50d6176d2d06c",
+        "player": "{ID_PLAYER}",
+        "gol": 6,
+        "team": "{ID_TEAM}"
+      },
+      {
+        "_id": "5d4c4f5de1e50d6176d2d06b",
+        "player": "{ID_PLAYER}",
+        "gol": 4,
+        "team": "{ID_TEAM}"
+      }
+    ],
+    "valid": false,
+    "round": 1,
+    "createdAt": "2019-08-08T16:35:41.786Z",
+    "updatedAt": "2019-08-08T17:11:39.292Z",
+    "__v": 0
+  }
+]
+```
+
+### Atualizar uma partida
+
+```bash
+PUT: http://localhost:3333/api/games
+
+BODY: 
+{
+	"gameId": "5d4c4f5de1e50d6176d2d06a",
+	"golA": 6,
+	"golB": 4,
+	"teamIdA": "5d4b26045865c40227618442",
+	"teamIdB": "5d4b260e5865c40227618443"
+}
+
+RESULT:
+{
+  "_id": "5d4c4f5de1e50d6176d2d06a",
+  "competition": "5d4b25c55865c4022761843f",
+  "players": [
+    {
+      "_id": "5d4c4f5de1e50d6176d2d06c",
+      "player": "5d4b25e45865c40227618440",
+      "gol": 6,
+      "team": "5d4b26045865c40227618442"
+    },
+    {
+      "_id": "5d4c4f5de1e50d6176d2d06b",
+      "player": "5d4b26d05865c40227618447",
+      "gol": 4,
+      "team": "5d4b260e5865c40227618443"
+    }
+  ],
+  "valid": false,
+  "round": 1,
+  "createdAt": "2019-08-08T16:35:41.786Z",
+  "updatedAt": "2019-08-08T17:11:39.292Z",
+  "__v": 0
+}
+```
