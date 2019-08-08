@@ -44,8 +44,7 @@ module.exports = {
                     }
                 }
                 if (!exist) {
-                    console.log(`Criar jogo entre ${classificationOrder[indexPlayerA].player.id} e ${classificationOrder[indexPlayerB].player.id}`)
-                    /*const game = await Game.create({
+                    const game = await Game.create({
                         competition: competition._id,
                         players: [{
                             player: classificationOrder[indexPlayerA].player.id,
@@ -54,9 +53,9 @@ module.exports = {
                         }],
                         valid: false,
                         round
-                    })*/
+                    })
             
-                    return res.json({okk: false})
+                    return res.json(game)
                 }
                 exist = false
             }

@@ -418,3 +418,33 @@ RESULT:
 
 ### Criar jogo
 Serviço gera uma partida entre dois jogadores que ainda não se enfrentaram e estão com menos jogos que os demais.
+
+```bash
+POST: http://localhost:3333/api/games/generate
+
+BODY:
+{
+	"competitionId": "{{ id_campeonato  }}",
+	"round": 1
+}
+RESULT:
+{
+  "_id": "5d4c90ca4584837654dbe69c",
+  "competition": "5d4c77e9b9eb8e3a56ffbc2a",
+  "players": [
+    {
+      "_id": "5d4c90ca4584837654dbe69e",
+      "player": "5d4c7844b9eb8e3a56ffbc2d"
+    },
+    {
+      "_id": "5d4c90ca4584837654dbe69d",
+      "player": "5d4c7849b9eb8e3a56ffbc2e"
+    }
+  ],
+  "valid": false,
+  "round": 1,
+  "createdAt": "2019-08-08T21:14:50.374Z",
+  "updatedAt": "2019-08-08T21:14:50.374Z",
+  "__v": 0
+}
+```
