@@ -43,3 +43,49 @@ RESULT:
   "__v": 0
 }
 ```
+
+### Listagem de campeonatos
+
+```bash
+GET: http://localhost:3333/api/competitions
+
+RESULT:
+[
+  {
+    "_id": "5d4ac3ab881fb622aae2c2f7",
+    "name": "Campeonato Série A",
+    "createdAt": "2019-08-07T12:27:23.126Z",
+    "updatedAt": "2019-08-07T12:27:23.126Z",
+    "__v": 0
+  },
+  {
+    "_id": "5d4ac3ca881fb622aae2c2f8",
+    "name": "Campeonato Série B",
+    "createdAt": "2019-08-07T12:27:54.146Z",
+    "updatedAt": "2019-08-07T13:05:27.207Z",
+    "__v": 0
+  }
+]
+```
+
+### Alterar um campeonato
+
+```bash
+PUT: http://localhost:3333/api/competitions
+
+BODY:
+
+{
+	"competitionId": "5d4ac3ca881fb622aae2c2f8",
+	"name": "Campeonato"
+}
+
+RESULT:
+{
+  "_id": "5d4ac3ca881fb622aae2c2f8",
+  "name": "Campeonato",
+  "createdAt": "2019-08-07T12:27:54.146Z",
+  "updatedAt": "2019-08-07T13:05:27.207Z",
+  "__v": 0
+}
+```
