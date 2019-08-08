@@ -14,6 +14,8 @@ module.exports = {
         const players = await Player.find({ 
             competition:  competition._id 
         })
+        
+        // Inicializando a classificação com a listagem dos jogadores com as informações zeradas
         const initClassification = (player) => {
             return {
                     player: {
@@ -37,6 +39,8 @@ module.exports = {
             valid: true
         })
 
+        //Para cada item da classificação será consultado os jogos do jogador e adicionado as informações:
+        //Gols, Jogos, Vitórias, Derrotas, Empates
         const addGame = (register) => {
             const array = games.filter(game => game.players[0].player == register.player.id.toString())
             
@@ -64,6 +68,7 @@ module.exports = {
                     }   
                 }
             }
+
             const arrayB = games.filter(game => game.players[1].player == register.player.id.toString())
             if (arrayB.length > 0) {
                 for (i = 0; i < arrayB.length; i++) { 
@@ -93,8 +98,10 @@ module.exports = {
             return register
         }
         
+        //Alterando a classificação com as informações dos jogos
         const classificationGames = classification.map(addGame)
 
+        //Para cada jogador será adicionado os pontos de acordo com os números de vitórias e empates
         const addPoints = (register) => {
             register = {...register,
                                 points: (register.win * 3) + register.draw
@@ -102,8 +109,10 @@ module.exports = {
             return register
         }
 
+        //Alterando a classificação com os pontos de cada jogador
         const classificationPoints = classificationGames.map(addPoints)
 
+        //Ordenando a classificação pelos pontos
         const sortClassification = (a,b) => {
             if (a.points > b.points) {
                 return -1;
