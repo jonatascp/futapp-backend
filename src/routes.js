@@ -14,6 +14,7 @@ routes.post('/api/competitions', CompetitionController.store)
 routes.put('/api/competitions', CompetitionController.update)
 
 routes.get('/api/players/:competitionId', PlayerController.index)
+routes.get('/api/players/:competitionId/:playerId', PlayerController.get)
 routes.post('/api/players', PlayerController.store)
 routes.put('/api/players', PlayerController.update)
 

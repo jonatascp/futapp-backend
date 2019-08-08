@@ -3,11 +3,8 @@ const Competition = require('../models/Competition')
 const Player = require('../models/Player')
 const Game = require('../models/Game')
 
-module.exports = {
-    async index(req, res) {
-        
-        const { competitionId } = req.params
-        const competition = await Competition.findById(competitionId)
+async function generetaClassification(competitionId, res) {
+    const competition = await Competition.findById(competitionId)
         if (!competition) {
             return res.status(400).json({ error: 'Competition not exist' })
         }
@@ -116,13 +113,26 @@ module.exports = {
         const sortClassification = (a,b) => {
             if (a.points > b.points) {
                 return -1;
-              }
-              if (a.points < b.points) {
+              } else if (a.points < b.points) {
                 return 1;
+              } else {
+                return 0;
               }
-              return 0;
         }
         
-        return res.json(classificationPoints.sort(sortClassification))
+        return classificationPoints.sort(sortClassification)
+}
+
+module.exports = {
+
+    async index(req, res) {
+
+        const { competitionId } = req.params
+        const classification = await generetaClassification(competitionId, res)
+        res.json(classification)
+    },
+    async generate(competitionId, res) {
+
+        return await generetaClassification(competitionId, res)
     }
 }

@@ -142,6 +142,23 @@ RESULT:
 ]
 ```
 
+### Obter um jogador
+
+```bash
+GET: http://localhost:3333/api/players/{ID_COMPETITION}/{ID_PLAYER}
+
+RESULT:
+{
+  "avatar": "avatar.png",
+  "_id": "{ID_PLAYER}",
+  "name": "Jogador A",
+  "competition": "{ID_COMPETITION}",
+  "createdAt": "2019-08-08T19:29:56.740Z",
+  "updatedAt": "2019-08-08T19:31:32.410Z",
+  "__v": 0
+}
+```
+
 ### Alterar um jogador
 
 ```bash
@@ -398,3 +415,6 @@ RESULT:
   }
 ]
 ```
+
+### Criar jogo
+Serviço gera uma partida entre dois jogadores que ainda não se enfrentaram e estão com menos jogos que os demais.

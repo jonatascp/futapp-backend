@@ -15,6 +15,20 @@ module.exports = {
         })
         return res.json(players)
     },
+    
+    async get(req, res) {
+        
+        const { competitionId, playerId } = req.params
+        const competition = await Competition.findById(competitionId)
+        if (!competition) {
+            return res.status(400).json({ error: 'Competition not exist' })
+        }
+        const player = await Player.findOne({ 
+            competition:  competition._id,
+            _id: playerId
+        })
+        return res.json(player)
+    },
 
     async store(req, res) {
         
