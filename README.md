@@ -89,3 +89,80 @@ RESULT:
   "__v": 0
 }
 ```
+
+### Criar um jogador
+
+```bash
+POST: http://localhost:3333/api/players
+
+BODY: 
+{
+	"name": "Jogador A",
+	"competitionId": "{ID_COMPETITION}",
+	"avatar": "avatar.png"
+}
+
+RESULT:
+{
+  "avatar": "avatar.png",
+  "_id": "{ID_PLAYER}",
+  "name": "Jogador A",
+  "competition": "{ID_COMPETITION}",
+  "createdAt": "2019-08-07T19:30:24.545Z",
+  "updatedAt": "2019-08-07T19:30:24.545Z",
+  "__v": 0
+}
+```
+
+### Listagem de jogadores
+
+```bash
+GET: http://localhost:3333/api/players/{ID_COMPETITION}
+
+RESULT:
+[
+  {
+    "avatar": "avatar.png",
+    "_id": "{ID_PLAYER}",
+    "name": "Jogador A",
+    "competition": "{ID_COMPETITION}",
+    "createdAt": "2019-08-07T19:26:28.419Z",
+    "updatedAt": "2019-08-07T19:26:28.419Z",
+    "__v": 0
+  },
+  {
+    "avatar": "avatar.png",
+    "_id": "{ID_PLAYER}",
+    "name": "Jogador B",
+    "competition": "{ID_COMPETITION}",
+    "createdAt": "2019-08-07T19:26:37.404Z",
+    "updatedAt": "2019-08-07T19:26:37.404Z",
+    "__v": 0
+  }
+]
+```
+
+### Alterar um jogador
+
+```bash
+PUT: http://localhost:3333/api/players
+
+BODY:
+
+{
+	"playerId": "{ID_PLAYER}",
+	"name": "Nome do Jogador",
+	"avatar": "http://url_avatar.com/avatar.png"
+}
+
+RESULT:
+{
+  "avatar": "http://url_avatar.com/avatar.png",
+  "_id": "5d4ad1d2fd6c874339a423e5",
+  "name": "Nome do Jogador",
+  "competition": "{ID_COMPETITION}",
+  "createdAt": "2019-08-07T13:27:46.553Z",
+  "updatedAt": "2019-08-07T13:53:44.661Z",
+  "__v": 0
+}
+```
