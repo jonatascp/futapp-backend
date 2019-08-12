@@ -68,6 +68,21 @@ RESULT:
 ]
 ```
 
+### Obter um campeonato
+
+```bash
+GET: http://localhost:3333/api/competitions/{ID_COMPETITION}
+
+RESULT:
+{
+  "_id": "{ID_COMPETITION}",
+  "name": "Campeonato A",
+  "createdAt": "2019-08-08T19:28:41.437Z",
+  "updatedAt": "2019-08-08T19:28:41.437Z",
+  "__v": 0
+}
+```
+
 ### Alterar um campeonato
 
 ```bash
@@ -175,7 +190,7 @@ BODY:
 RESULT:
 {
   "avatar": "http://url_avatar.com/avatar.png",
-  "_id": "5d4ad1d2fd6c874339a423e5",
+  "_id": "{ID_PLAYER}",
   "name": "Nome do Jogador",
   "competition": "{ID_COMPETITION}",
   "createdAt": "2019-08-07T13:27:46.553Z",
@@ -197,7 +212,7 @@ BODY:
 
 RESULT:
 {
-  "_id": "5d4b260e5865c40227618443",
+  "_id": "{ID_TEAM}",
   "name": "Barcelona",
   "competition": "{ID_COMPETITION}",
   "createdAt": "2019-08-07T19:27:10.117Z",
@@ -214,7 +229,7 @@ GET: http://localhost:3333/api/teams/{ID_COMPETITION}
 RESULT:
 [
   {
-    "_id": "5d4b26045865c40227618442",
+    "_id": "{ID_TEAM}",
     "name": "Real Madrid",
     "competition": "{ID_COMPETITION}",
     "createdAt": "2019-08-07T19:27:00.294Z",
@@ -222,7 +237,7 @@ RESULT:
     "__v": 0
   },
   {
-    "_id": "5d4b260e5865c40227618443",
+    "_id": "{ID_TEAM}",
     "name": "Barcelona",
     "competition": "{ID_COMPETITION}",
     "createdAt": "2019-08-07T19:27:10.117Z",
@@ -230,6 +245,23 @@ RESULT:
     "__v": 0
   }
 ]
+```
+
+### Obter um time
+
+```bash
+GET: http://localhost:3333/api/teams/{ID_TEAM}
+
+RESULT:
+
+{
+  "_id": "{ID_TEAM}",
+  "name": "Real Madrid",
+  "competition": "{ID_COMPETITION}",
+  "createdAt": "2019-08-07T19:27:00.294Z",
+  "updatedAt": "2019-08-07T19:27:00.294Z",
+  "__v": 0
+}
 ```
 
 ### Alterar um time
@@ -246,7 +278,7 @@ BODY:
 
 RESULT:
 {
-  "_id": "5d4ad9d1b4384054e9574b52",
+  "_id": "{ID_TEAM}",
   "name": "Barcelona",
   "competition": "{ID_COMPETITION}",
   "createdAt": "2019-08-07T14:01:53.759Z",
@@ -263,27 +295,27 @@ POST: http://localhost:3333/api/games
 BODY: 
 {
 	"playerA": {
-		"id": "5d4b25e45865c40227618440"
+		"id": "{ID_PLAYER_A}"
 	},
 	"playerB": {
-		"id": "5d4b26d05865c40227618447"
+		"id": "{ID_PLAYER_B}"
 	},
-	"competitionId": "5d4b25c55865c4022761843f",
+	"competitionId": "{ID_COMPETITION}",
 	"round": 1
 }
 
 RESULT:
 {
-  "_id": "5d4c4f5de1e50d6176d2d06a",
-  "competition": "5d4b25c55865c4022761843f",
+  "_id": "{ID_GAME}",
+  "competition": "{ID_COMPETITION}",
   "players": [
     {
       "_id": "5d4c4f5de1e50d6176d2d06c",
-      "player": "5d4b25e45865c40227618440"
+      "player": "{ID_PLAYER_A}"
     },
     {
       "_id": "5d4c4f5de1e50d6176d2d06b",
-      "player": "5d4b26d05865c40227618447"
+      "player": "{ID_PLAYER_B}"
     }
   ],
   "valid": false,
@@ -334,11 +366,11 @@ PUT: http://localhost:3333/api/games
 
 BODY: 
 {
-	"gameId": "5d4c4f5de1e50d6176d2d06a",
+	"gameId": "{ID_GAME}",
 	"golA": 6,
 	"golB": 4,
-	"teamIdA": "5d4b26045865c40227618442",
-	"teamIdB": "5d4b260e5865c40227618443"
+	"teamIdA": "{ID_TEAM_A}",
+	"teamIdB": "{ID_TEAM_B}"
 }
 
 RESULT:
@@ -348,15 +380,15 @@ RESULT:
   "players": [
     {
       "_id": "5d4c4f5de1e50d6176d2d06c",
-      "player": "5d4b25e45865c40227618440",
+      "player": "{ID_PLAYER_A}",
       "gol": 6,
-      "team": "5d4b26045865c40227618442"
+      "team": "{ID_TEAM_A}"
     },
     {
       "_id": "5d4c4f5de1e50d6176d2d06b",
-      "player": "5d4b26d05865c40227618447",
+      "player": "{ID_PLAYER_B}",
       "gol": 4,
-      "team": "5d4b260e5865c40227618443"
+      "team": "{ID_TEAM_B}"
     }
   ],
   "valid": false,
@@ -377,7 +409,7 @@ RESULT:
   {
     "player": {
       "name": "Jogador A",
-      "id": "5d4b25e45865c40227618440"
+      "id": "{ID_PLAYER_A}"
     },
     "games": 2,
     "win": 1,
@@ -390,7 +422,7 @@ RESULT:
   {
     "player": {
       "name": "Jogador C",
-      "id": "5d4b26d05865c40227618447"
+      "id": "{ID_PLAYER_C}"
     },
     "games": 1,
     "win": 0,
@@ -403,7 +435,7 @@ RESULT:
   {
     "player": {
       "name": "Jogador B",
-      "id": "5d4b25ed5865c40227618441"
+      "id": "{ID_PLAYER_B}"
     },
     "games": 1,
     "win": 0,
@@ -424,21 +456,21 @@ POST: http://localhost:3333/api/games/generate
 
 BODY:
 {
-	"competitionId": "{{ id_campeonato  }}",
+	"competitionId": "{ID_COMPETITION}",
 	"round": 1
 }
 RESULT:
 {
-  "_id": "5d4c90ca4584837654dbe69c",
-  "competition": "5d4c77e9b9eb8e3a56ffbc2a",
+  "_id": "{ID_GAME}",
+  "competition": "{ID_COMPETITION}",
   "players": [
     {
       "_id": "5d4c90ca4584837654dbe69e",
-      "player": "5d4c7844b9eb8e3a56ffbc2d"
+      "player": "{ID_PLAYER_A}"
     },
     {
       "_id": "5d4c90ca4584837654dbe69d",
-      "player": "5d4c7849b9eb8e3a56ffbc2e"
+      "player": "{ID_PLAYER_B}"
     }
   ],
   "valid": false,

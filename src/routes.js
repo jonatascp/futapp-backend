@@ -12,6 +12,7 @@ const GameGenerateController = require('./controllers/GameGenerateControllers')
 routes.get('/api/competitions', CompetitionController.index)
 routes.post('/api/competitions', CompetitionController.store)
 routes.put('/api/competitions', CompetitionController.update)
+routes.get('/api/competitions/:competitionId', CompetitionController.get)
 
 routes.get('/api/players/:competitionId', PlayerController.index)
 routes.get('/api/players/:competitionId/:playerId', PlayerController.get)
@@ -19,6 +20,7 @@ routes.post('/api/players', PlayerController.store)
 routes.put('/api/players', PlayerController.update)
 
 routes.get('/api/teams/:competitionId', TeamController.index)
+routes.get('/api/teams/:competitionId/:teamId', TeamController.get)
 routes.post('/api/teams', TeamController.store)
 routes.put('/api/teams', TeamController.update)
 

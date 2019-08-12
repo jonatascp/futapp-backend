@@ -50,5 +50,20 @@ module.exports = {
         await team.save()
 
         return res.json(team)
+    },
+
+    async get(req, res) {
+
+        const { teamId, competitionId } = req.params
+        
+        const team = await Team.findOne({
+            _id: teamId,
+            competition: competitionId
+        })
+        if(!team) {
+            return res.status(400).json({ error: 'Team not exist' })
+        }
+        
+        return res.json(team)
     }
 }

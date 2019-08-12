@@ -36,5 +36,18 @@ module.exports = {
         await competitionExists.save()
 
         return res.json(competitionExists)
+    },
+    
+    async get(req, res) {
+
+        const { competitionId } = req.params
+        const competition = await Competition.findById(competitionId)
+        
+        if(!competition) {
+            return res.status(400).json({ error: 'Competition not exist' })
+        }
+
+        return res.json(competition)
     }
+
 }
