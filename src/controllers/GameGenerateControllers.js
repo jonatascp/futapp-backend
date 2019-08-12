@@ -1,6 +1,6 @@
 const Competition = require('../models/Competition')
 const Game = require('../models/Game')
-const ClassificationController = require('./ClassificationControllers')
+const Player = require('../models/Player')
 
 module.exports = {
 
@@ -8,58 +8,90 @@ module.exports = {
         
         const { competitionId, round } = req.body
         
+        // Obtém a competição
         const competition = await Competition.findById(competitionId)
         if(!competition) {
             return res.status(400).json({ error: 'Competition not exist' })
         }
 
-        const classification = await ClassificationController.generate(competitionId)
-        const sortGames = (a, b) => {
-            if(a.games > b.games){
+        // Lista de jogadores da competição
+        const playersCompetition = await Player.find({
+            competition: competitionId
+        })
+
+        const maxGames = playersCompetition.length - 1
+
+        // Representa todos os adversários de cada jogador
+        let gamesPlayer = []
+
+        // Para cada jogador é criado um objeto com o ID e um array de ID's vazio
+        playersCompetition.forEach((element) => {
+            gamesPlayer.push({
+                player: element._id,
+                games:[]
+            })
+        })
+        
+        // Lista de todos os jogos do campeonato
+        const games = await Game.find({
+            competition: competitionId
+        })
+
+        // Para cada gamePlayer será adicionado os oponentes daquele jogador no seu array de games
+        const addGame = (gamePlayer) => {
+            let arrayGames = games.filter((result) => {
+                return result.players[0].player.toString() == gamePlayer.player
+            })
+            arrayGames.forEach((element) => {
+                gamePlayer.games.push(element.players[1].player.toString())
+            })
+            
+            arrayGames = games.filter((result) => {
+                return result.players[1].player.toString() == gamePlayer.player
+            })
+            arrayGames.forEach((element) => {
+                gamePlayer.games.push(element.players[0].player.toString())
+            })
+
+            return gamePlayer
+        }
+
+        // Gerando um novo array com os oponentes adicionados para cada jogador
+        gamesPlayer = gamesPlayer.map(addGame)
+
+        // Ordenação por jogador com menos jogos
+        const sortGamesPlayer = (a, b) => {
+            if (a.games.length > b.games.length) {
                 return 1
-            } else if (a.games == b.games) {
+            } else if (a.games.length == b.games.length) {
                 return 0
             } else {
                 return -1
             }
         }
+        gamesPlayer = gamesPlayer.sort(sortGamesPlayer)
 
-        const classificationOrder = classification.sort(sortGames)
-        const gamesUser = await Game.find ({ 
-            players: { 
-                $elemMatch: { 
-                    player: classificationOrder[0].player.id 
-                } 
-            } 
-        })
-        let exist = false
-        for(indexPlayerA=0; indexPlayerA < classificationOrder.length; indexPlayerA++) {
-            console.log(`consultando jogos de ${classificationOrder[indexPlayerA].player.id}`)
-            for(indexPlayerB=indexPlayerA+1; indexPlayerB < classificationOrder.length; indexPlayerB++) {
-                for(i=0; i < gamesUser.length; i++) {
-                    if (gamesUser[i].players[0].player.toString() == classificationOrder[indexPlayerB].player.id.toString() 
-                        || gamesUser[i].players[1].player.toString() == classificationOrder[indexPlayerB].player.id.toString()) {
-                        exist = true
-                        break
-                    }
-                }
-                if (!exist) {
-                    const game = await Game.create({
-                        competition: competition._id,
-                        players: [{
-                            player: classificationOrder[indexPlayerA].player.id,
-                        },{
-                            player: classificationOrder[indexPlayerB].player.id,
-                        }],
-                        valid: false,
-                        round
-                    })
+        if (gamesPlayer[0].games.length == maxGames) {
+            return res.status(400).json({ error: 'All games created' })
+        }
+
+        for(i=1; i<gamesPlayer.length; i++) {
             
-                    return res.json(game)
-                }
-                exist = false
+            if(gamesPlayer[i].games.indexOf(gamesPlayer[0].player.toString()) == -1) {
+                const game = await Game.create({
+                    competition: competition._id,
+                    players: [{
+                        player: gamesPlayer[0].player,
+                    },{
+                        player: gamesPlayer[i].player,
+                    }],
+                    valid: false,
+                    round
+                })
+                return res.json(game)
             }
         }
-        return res.json({message: 'Não existe partida a ser realizada'})
+
+        return res.status(400).json({ error: 'Error on create game' })
     }
 }

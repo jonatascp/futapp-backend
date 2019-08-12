@@ -2,8 +2,6 @@
 
 API criada para criação de campeonatos e controle de jogadores e partidas de futebol virtual.
 
-Protótipo: https://xd.adobe.com/view/42d6660f-c7d9-4b0a-6530-527758692dd2-34e7/?fullscreen&sa=D&source=hangouts&usg=AFQjCNHHE1KJBY1z1OFZ6xVf4yG0kpeoGg&ust=1565694777859000
-
 ## Install and Run project
 
 ### Install
