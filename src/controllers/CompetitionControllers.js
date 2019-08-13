@@ -3,7 +3,16 @@ const Competition = require('../models/Competition')
 module.exports = {
     async index(req, res) {
         
-        const competitions = await Competition.find()
+        let { active } = req.query
+        let activeCompetition = true
+                
+        if(active && active === '0') {
+            activeCompetition = false
+        }
+
+        const competitions = await Competition.find({
+            active: activeCompetition
+        })
 
         return res.json(competitions)
     },
@@ -18,14 +27,15 @@ module.exports = {
         }
 
         const competition = await Competition.create({
-            name
+            name,
+            active: true
         })
         return res.json(competition)
     },
 
     async update(req, res) {
 
-        const { name, competitionId } = req.body
+        const { name, competitionId, active } = req.body
         const competitionExists = await Competition.findById(competitionId)
         
         if(!competitionExists) {
@@ -33,6 +43,8 @@ module.exports = {
         }
 
         competitionExists.name = name
+        competitionExists.active = active
+
         await competitionExists.save()
 
         return res.json(competitionExists)

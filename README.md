@@ -36,6 +36,7 @@ BODY:
 
 RESULT:
 {
+  "active": true,
   "_id": "5d4b25c55865c4022761843f",
   "name": "Campeonato",
   "createdAt": "2019-08-07T19:25:57.897Z",
@@ -46,20 +47,50 @@ RESULT:
 
 ### Listagem de campeonatos
 
+Lista somente os campeonatos que estão ativos
+
 ```bash
 GET: http://localhost:3333/api/competitions
 
 RESULT:
 [
   {
-    "_id": "5d4ac3ab881fb622aae2c2f7",
+    "active": true,
+    "_id": "{ID_COMPETITION}",
     "name": "Campeonato Série A",
     "createdAt": "2019-08-07T12:27:23.126Z",
     "updatedAt": "2019-08-07T12:27:23.126Z",
     "__v": 0
   },
   {
-    "_id": "5d4ac3ca881fb622aae2c2f8",
+    "active": true,
+    "_id": "{ID_COMPETITION}",
+    "name": "Campeonato Série B",
+    "createdAt": "2019-08-07T12:27:54.146Z",
+    "updatedAt": "2019-08-07T13:05:27.207Z",
+    "__v": 0
+  }
+]
+```
+
+### Listagem de campeonatos inativos
+
+```bash
+GET: http://localhost:3333/api/competitions?active=0
+
+RESULT:
+[
+  {
+    "active": false,
+    "_id": "{ID_COMPETITION}",
+    "name": "Campeonato Série A",
+    "createdAt": "2019-08-07T12:27:23.126Z",
+    "updatedAt": "2019-08-07T12:27:23.126Z",
+    "__v": 0
+  },
+  {
+    "active": false,
+    "_id": "{ID_COMPETITION}",
     "name": "Campeonato Série B",
     "createdAt": "2019-08-07T12:27:54.146Z",
     "updatedAt": "2019-08-07T13:05:27.207Z",
@@ -75,6 +106,7 @@ GET: http://localhost:3333/api/competitions/{ID_COMPETITION}
 
 RESULT:
 {
+  "active": true,
   "_id": "{ID_COMPETITION}",
   "name": "Campeonato A",
   "createdAt": "2019-08-08T19:28:41.437Z",
@@ -92,11 +124,13 @@ BODY:
 
 {
 	"competitionId": "5d4ac3ca881fb622aae2c2f8",
-	"name": "Campeonato"
+	"name": "Campeonato",
+	"active": true
 }
 
 RESULT:
 {
+  "active": true,
   "_id": "5d4ac3ca881fb622aae2c2f8",
   "name": "Campeonato",
   "createdAt": "2019-08-07T12:27:54.146Z",
