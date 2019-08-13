@@ -456,8 +456,7 @@ POST: http://localhost:3333/api/games/generate
 
 BODY:
 {
-	"competitionId": "{ID_COMPETITION}",
-	"round": 1
+	"competitionId": "{ID_COMPETITION}"
 }
 RESULT:
 {

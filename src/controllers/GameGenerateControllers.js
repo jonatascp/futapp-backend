@@ -6,7 +6,7 @@ module.exports = {
 
     async store(req, res) {
         
-        const { competitionId, round } = req.body
+        const { competitionId } = req.body
         
         // Obtém a competição
         const competition = await Competition.findById(competitionId)
@@ -19,7 +19,39 @@ module.exports = {
             competition: competitionId
         })
 
+        if(playersCompetition.length < 2) {
+            return res.status(400).json({ error: 'Not players' })
+        }
+
+        // Máximo de jogos que um jogador pode ter realizado
         const maxGames = playersCompetition.length - 1
+        
+        // Obtendo o valor de jogos por rodada
+        const gamePerRound = Math.floor(playersCompetition.length / 2)
+        
+        // Obtendo um jogo da última rodada
+        const lastGame = await Game.findOne({
+            competition: competitionId
+        }).sort({round: -1}).limit(1)
+
+        let countLastRound = 0
+        let actualRound = 1
+
+        // Atualizando a rodada atual com a do último jogo
+        if (lastGame) {
+            actualRound = lastGame.round
+
+            // Obtendo a quantidade de jogos da última rodada
+            countLastRound = await Game.countDocuments({
+                competition: competitionId,
+                round: lastGame.round
+            })
+        }
+
+        // Verificando se precisa mudar a rodada para o próximo jogo que será criado
+        if(!(countLastRound < gamePerRound)) {
+            actualRound = actualRound + 1
+        }
 
         // Representa todos os adversários de cada jogador
         let gamesPlayer = []
@@ -86,7 +118,7 @@ module.exports = {
                         player: gamesPlayer[i].player,
                     }],
                     valid: false,
-                    round
+                    round: actualRound
                 })
                 return res.json(game)
             }
