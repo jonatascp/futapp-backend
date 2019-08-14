@@ -1,4 +1,3 @@
-//const Team = require('../models/Team')
 const Competition = require('../models/Competition')
 const Player = require('../models/Player')
 const Game = require('../models/Game')

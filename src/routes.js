@@ -8,6 +8,7 @@ const TeamController = require('./controllers/TeamControllers')
 const ClassificationController = require('./controllers/ClassificationControllers')
 const GameController = require('./controllers/GameControllers')
 const GameGenerateController = require('./controllers/GameGenerateControllers')
+const RoundController = require('./controllers/RoundControllers')
 
 routes.get('/api/competitions', CompetitionController.index)
 routes.post('/api/competitions', CompetitionController.store)
@@ -31,5 +32,7 @@ routes.post('/api/games', GameController.store)
 routes.put('/api/games', GameController.update)
 
 routes.post('/api/games/generate', GameGenerateController.store)
+
+routes.get('/api/rounds/:competitionId', RoundController.index)
 
 module.exports = routes
