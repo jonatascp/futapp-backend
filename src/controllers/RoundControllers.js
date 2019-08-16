@@ -35,9 +35,11 @@ module.exports = {
             gamesRound.hasPrevious = true
         }
 
-        const gamesRound = await Game.find({
-
+        const games = await Game.find({
+            round: gamesRound.round
         })
+
+        gamesRound.games = games
 
         return res.json(gamesRound)
     }
