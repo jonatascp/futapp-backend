@@ -8,25 +8,31 @@ module.exports = {
         const { round } = req.query
 
         let gamesRound = {
-            round: "1",
+            round: 1,
             games:[],
             hasNext: false,
-            hasPrevious: false
+            hasPrevious: false,
+            firstRound: 1,
+            lastRound: 1
         }
 
         // Obtendo um jogo da última rodada
         const lastGame = await Game.findOne({
             competition: competitionId
         }).sort({round: -1}).limit(1)
+
+        if (!lastGame) {
+            return res.json(gamesRound)
+        }
+
+        gamesRound.lastRound = lastGame.round
         
         // Configurando a rodada e se existe rodadas anteriores ou próximas
-        if (!round) {
-            if(lastGame) {
-                gamesRound.round = lastGame.round.toString()
-            }
+        if (!round || round > lastGame.round) {
+            gamesRound.round = lastGame.round
         } else {
             gamesRound.round = round
-            if(lastGame && lastGame.round > gamesRound.round) {
+            if(lastGame.round > gamesRound.round) {
                 gamesRound.hasNext = true
             } 
         }
