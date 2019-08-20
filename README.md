@@ -513,3 +513,37 @@ RESULT:
   "__v": 0
 }
 ```
+
+### Lista de jogos da rodada
+Caso não seja informada a rodada na chamada será retornada a rodada atual
+
+```bash
+GET: http://localhost:3333/api/rounds/{ID_COMPETITION}?round={NUMBER_ROUND}
+
+RESULT:
+{
+  "round": "2",
+  "games": [
+    {
+      "_id": "5d52bd93b5e7e00494ea6543",
+      "competition": "5d50da68834df04ffc60b169",
+      "players": [
+        {
+          "_id": "5d52bd93b5e7e00494ea6545",
+          "player": "5d52bd7ab5e7e00494ea6542"
+        },
+        {
+          "_id": "5d52bd93b5e7e00494ea6544",
+          "player": "5d52bd3ab5e7e00494ea653d"
+        }
+      ],
+      "valid": false,
+      "round": 2,
+      "createdAt": "2019-08-13T13:39:31.539Z",
+      "updatedAt": "2019-08-13T13:39:31.539Z",
+      "__v": 0
+    }
+  ],
+  "hasNext": false,
+  "hasPrevious": true
+}
