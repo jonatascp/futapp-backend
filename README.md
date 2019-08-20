@@ -545,5 +545,7 @@ RESULT:
     }
   ],
   "hasNext": false,
-  "hasPrevious": true
+  "hasPrevious": true,
+  "firstRound": 1,
+  "lastRound": 2
 }
