@@ -26,6 +26,14 @@ module.exports = {
                     foreignField : "_id",
                     as: "players_object"
                 }
+            },
+            {
+                $lookup: {
+                    from: "teams",
+                    localField: "players.team",
+                    foreignField : "_id",
+                    as: "teams_object"
+                }
             }
          ])
 
@@ -37,8 +45,15 @@ module.exports = {
                      _id: game.players_object[i]._id,
                      name: game.players_object[i].name
                  }
+                 if(game.teams_object.length === 2) {
+                     game.players[i].team = {
+                        _id: game.teams_object[i]._id,
+                        name: game.teams_object[i].name
+                    }
+                 }
             }
             delete game.players_object
+            delete game.teams_object
             return game
         }
         return res.json(games.map(projectionGames))

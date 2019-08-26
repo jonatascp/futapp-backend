@@ -368,26 +368,38 @@ GET: http://localhost:3333/api/games/{ID_COMPETITION}
 RESULT:
 [
   {
-    "_id": "5d4c4f5de1e50d6176d2d06a",
+    "_id": "5d5c4c43cb493a4613a35e62",
     "competition": "{ID_COMPETITION}",
     "players": [
       {
-        "_id": "5d4c4f5de1e50d6176d2d06c",
-        "player": "{ID_PLAYER}",
-        "gol": 6,
-        "team": "{ID_TEAM}"
+        "_id": "5d5c4c43cb493a4613a35e64",
+        "player": {
+          "_id": "5d5c4a0fcb493a4613a35e59",
+          "name": "Jogador A"
+        },
+        "gol": 3,
+        "team": {
+          "_id": "5d5c4a62cb493a4613a35e60",
+          "name": "Barcelona"
+        }
       },
       {
-        "_id": "5d4c4f5de1e50d6176d2d06b",
-        "player": "{ID_PLAYER}",
-        "gol": 4,
-        "team": "{ID_TEAM}"
+        "_id": "5d5c4c43cb493a4613a35e63",
+        "player": {
+          "_id": "5d5c4a1acb493a4613a35e5a",
+          "name": "Jogador B"
+        },
+        "gol": 2,
+        "team": {
+          "_id": "5d5c4a6acb493a4613a35e61",
+          "name": "Real Madrid"
+        }
       }
     ],
     "valid": false,
     "round": 1,
-    "createdAt": "2019-08-08T16:35:41.786Z",
-    "updatedAt": "2019-08-08T17:11:39.292Z",
+    "createdAt": "2019-08-20T19:38:43.382Z",
+    "updatedAt": "2019-08-26T16:50:19.903Z",
     "__v": 0
   }
 ]
