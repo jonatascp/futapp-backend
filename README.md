@@ -514,6 +514,22 @@ RESULT:
 }
 ```
 
+### Gerar todos os jogos do campeonato
+Serviço gera todas as partidas do campeonato, caso já existam partidas, será apenas completo os jogos que faltam.
+
+```bash
+POST: http://localhost:3333/api/allgames/generate
+
+BODY:
+{
+	"competitionId": "{ID_COMPETITION}"
+}
+RESULT:
+{
+  "message": "All games created"
+}
+```
+
 ### Lista de jogos da rodada
 Caso não seja informada a rodada na chamada será retornada a rodada atual
 

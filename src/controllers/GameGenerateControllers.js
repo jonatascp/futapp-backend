@@ -143,7 +143,6 @@ module.exports = {
         
         //Repetir a geração de jogo enquanto existir jogos a serem gerados.
         while(gameGenerate._id) {
-            console.log(`Game criado ${gameGenerate._id}`)
             gameGenerate = await generate(req)
         }
         
