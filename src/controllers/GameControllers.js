@@ -12,10 +12,36 @@ module.exports = {
         if (!competition) {
             return res.status(400).json({ error: 'Competition not exist' })
         }
-        const games = await Game.find({ 
-            competition:  competition._id 
-        })
-        return res.json(games)
+
+        const games = await Game.aggregate([
+            { 
+                $match: { 
+                    competition:  competition._id 
+                } 
+            },
+            {
+                $lookup: {
+                    from: "players",
+                    localField: "players.player",
+                    foreignField : "_id",
+                    as: "players_object"
+                }
+            }
+         ])
+
+        // Projetando as informações dos jogadores no retorno da requisição
+        const projectionGames = (game) => {
+             
+            for(i=0; i<2; i++) {
+                game.players[i].player = {
+                     _id: game.players_object[i]._id,
+                     name: game.players_object[i].name
+                 }
+            }
+            delete game.players_object
+            return game
+        }
+        return res.json(games.map(projectionGames))
     },
     
     async store(req, res) {

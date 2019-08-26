@@ -103,6 +103,8 @@ module.exports = {
         }
         gamesPlayer = gamesPlayer.sort(sortGamesPlayer)
 
+        // Após a ordenção caso o jogador que tenha menos jogos já tenha atingido
+        // o número máximo de jogos, consequentemente todos os jogos foram realizados
         if (gamesPlayer[0].games.length == maxGames) {
             return res.status(400).json({ error: 'All games created' })
         }
