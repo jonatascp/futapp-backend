@@ -33,6 +33,8 @@ routes.put('/api/games', GameController.update)
 
 routes.post('/api/games/generate', GameGenerateController.store)
 
+routes.post('/api/allgames/generate', GameGenerateController.all)
+
 routes.get('/api/rounds/:competitionId', RoundController.index)
 
 module.exports = routes
