@@ -550,30 +550,46 @@ GET: http://localhost:3333/api/rounds/{ID_COMPETITION}?round={NUMBER_ROUND}
 
 RESULT:
 {
-  "round": "2",
+  "round": 1,
   "games": [
     {
-      "_id": "5d52bd93b5e7e00494ea6543",
-      "competition": "5d50da68834df04ffc60b169",
+      "_id": "5d5c4c43cb493a4613a35e62",
+      "competition": "5d5c49d6cb493a4613a35e58",
       "players": [
         {
-          "_id": "5d52bd93b5e7e00494ea6545",
-          "player": "5d52bd7ab5e7e00494ea6542"
+          "_id": "5d5c4c43cb493a4613a35e64",
+          "player": {
+            "_id": "5d5c4a0fcb493a4613a35e59",
+            "name": "Jogador A"
+          },
+          "gol": 3,
+          "team": {
+            "_id": "5d5c4a62cb493a4613a35e60",
+            "name": "Barcelona"
+          }
         },
         {
-          "_id": "5d52bd93b5e7e00494ea6544",
-          "player": "5d52bd3ab5e7e00494ea653d"
+          "_id": "5d5c4c43cb493a4613a35e63",
+          "player": {
+            "_id": "5d5c4a1acb493a4613a35e5a",
+            "name": "Jogador B"
+          },
+          "gol": 2,
+          "team": {
+            "_id": "5d5c4a6acb493a4613a35e61",
+            "name": "Real Madrid"
+          }
         }
       ],
       "valid": false,
-      "round": 2,
-      "createdAt": "2019-08-13T13:39:31.539Z",
-      "updatedAt": "2019-08-13T13:39:31.539Z",
+      "round": 1,
+      "createdAt": "2019-08-20T19:38:43.382Z",
+      "updatedAt": "2019-08-26T16:50:19.903Z",
       "__v": 0
     }
   ],
-  "hasNext": false,
-  "hasPrevious": true,
+  "hasNext": true,
+  "hasPrevious": false,
   "firstRound": 1,
-  "lastRound": 2
+  "lastRound": 5
 }
