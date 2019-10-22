@@ -9,16 +9,18 @@ const ClassificationController = require('./controllers/ClassificationController
 const GameController = require('./controllers/GameControllers')
 const GameGenerateController = require('./controllers/GameGenerateControllers')
 const RoundController = require('./controllers/RoundControllers')
+const CompetitionPlayerController = require('./controllers/CompetitionPlayerControllers')
 
 routes.get('/api/competitions', CompetitionController.index)
 routes.post('/api/competitions', CompetitionController.store)
 routes.put('/api/competitions', CompetitionController.update)
 routes.get('/api/competitions/:competitionId', CompetitionController.get)
 
-routes.get('/api/players/:competitionId', PlayerController.index)
+routes.get('/api/players', PlayerController.index)
 routes.get('/api/players/:competitionId/:playerId', PlayerController.get)
 routes.post('/api/players', PlayerController.store)
 routes.put('/api/players', PlayerController.update)
+routes.get('/api/players-not-exist/:competitionId', PlayerController.notcompetition)
 
 routes.get('/api/teams/:competitionId', TeamController.index)
 routes.get('/api/teams/:competitionId/:teamId', TeamController.get)
@@ -36,5 +38,8 @@ routes.post('/api/games/generate', GameGenerateController.store)
 routes.post('/api/allgames/generate', GameGenerateController.all)
 
 routes.get('/api/rounds/:competitionId', RoundController.index)
+
+routes.get('/api/players/:competitionId', CompetitionPlayerController.index)
+routes.post('/api/players/add-competition-player', CompetitionPlayerController.store)
 
 module.exports = routes
