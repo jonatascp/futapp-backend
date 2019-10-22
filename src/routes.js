@@ -22,7 +22,7 @@ routes.post('/api/players', PlayerController.store)
 routes.put('/api/players', PlayerController.update)
 routes.get('/api/players-not-exist/:competitionId', PlayerController.notcompetition)
 
-routes.get('/api/teams/:competitionId', TeamController.index)
+routes.get('/api/teams', TeamController.index)
 routes.get('/api/teams/:competitionId/:teamId', TeamController.get)
 routes.post('/api/teams', TeamController.store)
 routes.put('/api/teams', TeamController.update)
@@ -32,6 +32,7 @@ routes.get('/api/classifications/:competitionId', ClassificationController.index
 routes.get('/api/games/:competitionId', GameController.index)
 routes.post('/api/games', GameController.store)
 routes.put('/api/games', GameController.update)
+routes.put('/api/games/approve', GameController.approve)
 
 routes.post('/api/games/generate', GameGenerateController.store)
 

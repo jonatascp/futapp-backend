@@ -4,14 +4,7 @@ const Competition = require('../models/Competition')
 module.exports = {
     async index(req, res) {
         
-        const { competitionId } = req.params
-        const competition = await Competition.findById(competitionId)
-        if (!competition) {
-            return res.status(400).json({ error: 'Competition not exist' })
-        }
-        const teams = await Team.find({ 
-            competition:  competition._id 
-        })
+        const teams = await Team.find()
 
         return res.json(teams)
     },

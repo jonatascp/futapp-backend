@@ -78,21 +78,42 @@ module.exports = {
 
         // Projetando as informações dos jogadores no retorno da requisição
         const projectionGames = (game) => {
-             
-            for(i=0; i<2; i++) {
-                game.players[i].player = {
-                     _id: game.players_object[i]._id,
-                     name: game.players_object[i].name
-                 }
-                 if(game.teams_object.length === 2) {
-                     game.players[i].team = {
-                        _id: game.teams_object[i]._id,
-                        name: game.teams_object[i].name
-                    }
-                 }
+            console.log(game) 
+            game.playerA = {}
+            game.playerB = {}
+            game.playerA.player = {
+                _id: game.players_object[0]._id,
+                 name: game.players_object[0].name,
+                 avatar: game.players_object[0].avatar,
             }
+            game.playerB.player = {
+                _id: game.players_object[1]._id,
+                 name: game.players_object[1].name,
+                 avatar: game.players_object[1].avatar,
+            }
+            if (game.players[0].gol) {
+                game.playerA.gol = game.players[0].gol
+            }
+            if (game.players[1].gol) {
+                game.playerB.gol = game.players[0].gol
+            }
+            if(game.teams_object.length === 2) {
+
+                game.playerA.team = {
+                    _id: game.teams_object[0]._id,
+                    name: game.teams_object[0].name,
+                    avatar: game.teams_object[0].avatar,
+                }
+                game.playerB.team = {
+                    _id: game.teams_object[1]._id,
+                    name: game.teams_object[1].name,
+                    avatar: game.teams_object[1].avatar,
+                }
+            }
+            
             delete game.players_object
             delete game.teams_object
+            delete game.players
             return game
         }
 
