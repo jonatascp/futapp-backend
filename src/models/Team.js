@@ -5,10 +5,11 @@ const TeamSchema = new Schema({
         type: String,
         required: true,
     },
-    competition: {
-        type: Schema.Types.ObjectId,
-        ref: 'Competition'
-    },    
+    avatar: {
+        type: String,
+        required: true,
+        default: 'https://png.pngtree.com/element_origin_min_pic/16/09/01/2057c825c1498c5.jpg'
+    }
 }, { 
     timestamps: true,    
 })

@@ -8,12 +8,8 @@ const PlayerSchema = new Schema({
     avatar: {
         type: String,
         required: true,
-        default: 'imgDefault'
-    },
-    competition: {
-        type: Schema.Types.ObjectId,
-        ref: 'Competition'
-    },    
+        default: 'https://png.pngtree.com/png-clipart/20190619/original/pngtree-vector-avatar-icon-png-image_4013749.jpg'
+    }    
 }, { 
     timestamps: true,    
 })
