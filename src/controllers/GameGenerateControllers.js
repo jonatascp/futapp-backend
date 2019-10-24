@@ -1,6 +1,6 @@
 const Competition = require('../models/Competition')
 const Game = require('../models/Game')
-const Player = require('../models/Player')
+const CompetitionPlayer = require('../models/CompetitionPlayer')
 
 async function generate(req) {
     const { competitionId } = req.body
@@ -12,10 +12,14 @@ async function generate(req) {
     }
 
     // Lista de jogadores da competição
-    const playersCompetition = await Player.find({
+    const competitionPlayerList = await CompetitionPlayer.find({
         competition: competitionId
-    })
+    }).populate('player')
 
+    const playersCompetition = competitionPlayerList.map(data => {
+        return data.player
+    })
+    
     if(playersCompetition.length < 2) {
         return { error: 'Not players' }
     }

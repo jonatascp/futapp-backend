@@ -24,24 +24,280 @@ yarn dev
 
 ## API's
 
-### Criar um campeonato
+# Criar um campeonato
 
-```bash
-POST: http://localhost:3333/api/competitions
-
-BODY: 
+Endpoint (POST):
+```
+{{ baser_url  }}/competitions
+```
+Body:
+```
 {
-    "name": "Campeonato"
+	"name": "Campeonato Validando Fluxo"
+}
+```
+
+# Criar jogadores (será substituído com a integração do login google)
+
+Endpoint (POST):
+```
+{{ baser_url  }}/players
+```
+Body:
+```
+{
+	"name": "Jogador 001 Validando o Fluxo"
+}
+```
+
+# Criar Times
+
+Endpoint (POST):
+```
+{{ baser_url  }}/teams
+```
+Body:
+```
+{
+	"name": "Time A para validação"
+}
+```
+
+# Associar Jogadores ao Campeonato
+
+## Listagem dos campeonatos que estão ativos
+
+Endpoint (GET):
+```
+{{ baser_url  }}/competitions
+```
+Response:
+```
+[
+  {
+    "active": true,
+    "avatar": "https://png.pngtree.com/png-clipart/20190516/original/pngtree-champions-league-uefa-logo-png-image_3643132.jpg",
+    "_id": "5daeefb977f01949feff5048",
+    "name": "Campeonato Validando Fluxo",
+    "createdAt": "2019-10-22T12:02:01.574Z",
+    "updatedAt": "2019-10-22T12:02:01.574Z",
+    "__v": 0
+  }
+]
+```
+## Listagem dos jogadores que ainda não estão associados ao campeonato selecionado
+
+Endpoint (GET):
+```
+{{ baser_url  }}/players-not-exist/{{ id_campeonato  }}
+```
+Response:
+```
+[
+  {
+    "avatar": "https://png.pngtree.com/png-clipart/20190619/original/pngtree-vector-avatar-icon-png-image_4013749.jpg",
+    "_id": "5daef0a44395494cc1550e2f",
+    "name": "Jogador 002 Validando o Fluxo",
+    "createdAt": "2019-10-22T12:05:56.014Z",
+    "updatedAt": "2019-10-22T12:05:56.014Z",
+    "__v": 0
+  }
+]
+```
+
+## Associando Jogador com o campeonato
+
+Endpoint (POST):
+```
+{{ baser_url  }}/players/add-competition-player
+```
+Body:
+```
+{
+	"playerId": "{{ id_jogadorA  }}",
+	"competitionId": "{{ id_campeonato  }}"
+}
+```
+
+# Classificação do campeonato
+
+Endpoint (GET):
+```
+{{ baser_url  }}/classifications/{{ id_campeonato }}
+```
+Response:
+```
+[
+  {
+    "player": {
+      "name": "Jogador 001 Validando o Fluxo",
+      "id": "5daef06277f01949feff5049",
+      "avatar": "https://png.pngtree.com/png-clipart/20190619/original/pngtree-vector-avatar-icon-png-image_4013749.jpg"
+    },
+    "games": 0,
+    "win": 0,
+    "lost": 0,
+    "draw": 0,
+    "gp": 0,
+    "gc": 0,
+    "points": 0
+  },
+  {
+    "player": {
+      "name": "Jogador 002 Validando o Fluxo",
+      "id": "5daef0a44395494cc1550e2f",
+      "avatar": "https://png.pngtree.com/png-clipart/20190619/original/pngtree-vector-avatar-icon-png-image_4013749.jpg"
+    },
+    "games": 0,
+    "win": 0,
+    "lost": 0,
+    "draw": 0,
+    "gp": 0,
+    "gc": 0,
+    "points": 0
+  }
+]
+```
+
+## Gerar todos os jogos do campeonato
+
+Endpoint (POST):
+```
+{{ baser_url  }}/allgames/generate
+```
+
+BODY:
+```
+{
+	"competitionId": "{{ id_campeonato }}"
+}
+```
+
+## Listar jogos da rodada
+
+Endpoint (GET):
+```
+{{ baser_url  }}/rounds/{{ id_campeonato  }}?round={{ number_round }}
+```
+
+RESPONSE:
+{
+  "round": 1,
+  "games": [
+    {
+      "_id": "5daf4595570b777dbaecff88",
+      "competition": "5daeefb977f01949feff5048",
+      "valid": false,
+      "round": 1,
+      "createdAt": "2019-10-22T18:08:21.383Z",
+      "updatedAt": "2019-10-22T18:33:00.149Z",
+      "__v": 0,
+      "playerA": {
+        "player": {
+          "_id": "5daef06277f01949feff5049",
+          "name": "Jogador 001 Validando o Fluxo",
+          "avatar": "https://png.pngtree.com/png-clipart/20190619/original/pngtree-vector-avatar-icon-png-image_4013749.jpg"
+        },
+        "gol": 3,
+        "team": {
+          "_id": "5d5c4a62cb493a4613a35e60",
+          "name": "Barcelona"
+        }
+      },
+      "playerB": {
+        "player": {
+          "_id": "5daef0a44395494cc1550e2f",
+          "name": "Jogador 002 Validando o Fluxo",
+          "avatar": "https://png.pngtree.com/png-clipart/20190619/original/pngtree-vector-avatar-icon-png-image_4013749.jpg"
+        },
+        "gol": 3,
+        "team": {
+          "_id": "5d5c4a6acb493a4613a35e61",
+          "name": "Real Madrid"
+        }
+      }
+    },
+    {
+      "_id": "5daf4596570b777dbaecff8b",
+      "competition": "5daeefb977f01949feff5048",
+      "valid": false,
+      "round": 1,
+      "createdAt": "2019-10-22T18:08:22.164Z",
+      "updatedAt": "2019-10-22T18:08:22.164Z",
+      "__v": 0,
+      "playerA": {
+        "player": {
+          "_id": "5d4ad1d2fd6c874339a423e5",
+          "name": "Jonatas 2",
+          "avatar": "avatar.png"
+        }
+      },
+      "playerB": {
+        "player": {
+          "_id": "5d4b062d33d58c33a40c033e",
+          "name": "João",
+          "avatar": "avatar.png"
+        }
+      }
+    }
+  ],
+  "hasNext": true,
+  "hasPrevious": false,
+  "firstRound": 1,
+  "lastRound": 3
 }
 
-RESULT:
+## Listagem de times cadastrados (Selecionar os times ao atualizar uma partida)
+
+Endpoint (GET):
+```
+{{ baser_url  }}/teams
+```
+
+RESPONSE:
+```
+[
+  {
+    "avatar": "https://png.pngtree.com/element_origin_min_pic/16/09/01/2057c825c1498c5.jpg",
+    "_id": "5d4ad9d1b4384054e9574b52",
+    "name": "Barcelona",
+    "competition": "5d4ac3ca881fb622aae2c2f8",
+    "createdAt": "2019-08-07T14:01:53.759Z",
+    "updatedAt": "2019-08-07T14:03:19.553Z",
+    "__v": 0
+  }
+]
+```
+
+## Atualizar placar do jogo (adicionar os gols e os times utilizados)
+
+Endpoint (PUT):
+```
+{{ baser_url  }}/games
+```
+
+BODY:
+```
 {
-  "active": true,
-  "_id": "5d4b25c55865c4022761843f",
-  "name": "Campeonato",
-  "createdAt": "2019-08-07T19:25:57.897Z",
-  "updatedAt": "2019-08-07T19:25:57.897Z",
-  "__v": 0
+	"gameId": "5daf4595570b777dbaecff88",
+	"golA": 3,
+	"golB": 2,
+	"teamIdA": "{{ id_barcelona  }}",
+	"teamIdB": "{{ id_real_madrid  }}"
+}
+```
+
+## Aprovar o jogo com as informações preenchidas e salvas (botão de aprovação no jogo)
+
+Endpoint (PUT):
+```
+{{ baser_url  }}/games/approve
+```
+
+BODY:
+```
+{
+	"gameId": "5daf4595570b777dbaecff88"
 }
 ```
 
@@ -139,31 +395,7 @@ RESULT:
 }
 ```
 
-### Criar um jogador
-
-```bash
-POST: http://localhost:3333/api/players
-
-BODY: 
-{
-	"name": "Jogador A",
-	"competitionId": "{ID_COMPETITION}",
-	"avatar": "avatar.png"
-}
-
-RESULT:
-{
-  "avatar": "avatar.png",
-  "_id": "{ID_PLAYER}",
-  "name": "Jogador A",
-  "competition": "{ID_COMPETITION}",
-  "createdAt": "2019-08-07T19:30:24.545Z",
-  "updatedAt": "2019-08-07T19:30:24.545Z",
-  "__v": 0
-}
-```
-
-### Listagem de jogadores
+### Listagem de jogadores da competição
 
 ```bash
 GET: http://localhost:3333/api/players/{ID_COMPETITION}
@@ -171,21 +403,11 @@ GET: http://localhost:3333/api/players/{ID_COMPETITION}
 RESULT:
 [
   {
-    "avatar": "avatar.png",
-    "_id": "{ID_PLAYER}",
-    "name": "Jogador A",
-    "competition": "{ID_COMPETITION}",
-    "createdAt": "2019-08-07T19:26:28.419Z",
-    "updatedAt": "2019-08-07T19:26:28.419Z",
-    "__v": 0
-  },
-  {
-    "avatar": "avatar.png",
-    "_id": "{ID_PLAYER}",
-    "name": "Jogador B",
-    "competition": "{ID_COMPETITION}",
-    "createdAt": "2019-08-07T19:26:37.404Z",
-    "updatedAt": "2019-08-07T19:26:37.404Z",
+    "avatar": "https://png.pngtree.com/png-clipart/20190619/original/pngtree-vector-avatar-icon-png-image_4013749.jpg",
+    "_id": "5daef06277f01949feff5049",
+    "name": "Jogador 001 Validando o Fluxo",
+    "createdAt": "2019-10-22T12:04:50.616Z",
+    "updatedAt": "2019-10-22T12:04:50.616Z",
     "__v": 0
   }
 ]
@@ -198,12 +420,11 @@ GET: http://localhost:3333/api/players/{ID_COMPETITION}/{ID_PLAYER}
 
 RESULT:
 {
-  "avatar": "avatar.png",
-  "_id": "{ID_PLAYER}",
-  "name": "Jogador A",
-  "competition": "{ID_COMPETITION}",
-  "createdAt": "2019-08-08T19:29:56.740Z",
-  "updatedAt": "2019-08-08T19:31:32.410Z",
+  "avatar": "https://png.pngtree.com/png-clipart/20190619/original/pngtree-vector-avatar-icon-png-image_4013749.jpg",
+  "_id": "5daef06277f01949feff5049",
+  "name": "Jogador 001 Validando o Fluxo",
+  "createdAt": "2019-10-22T12:04:50.616Z",
+  "updatedAt": "2019-10-22T12:04:50.616Z",
   "__v": 0
 }
 ```
@@ -221,61 +442,22 @@ BODY:
 	"avatar": "http://url_avatar.com/avatar.png"
 }
 
-RESULT:
-{
-  "avatar": "http://url_avatar.com/avatar.png",
-  "_id": "{ID_PLAYER}",
-  "name": "Nome do Jogador",
-  "competition": "{ID_COMPETITION}",
-  "createdAt": "2019-08-07T13:27:46.553Z",
-  "updatedAt": "2019-08-07T13:53:44.661Z",
-  "__v": 0
-}
-```
-
-### Criar um time
-
-```bash
-POST: http://localhost:3333/api/teams
-
-BODY: 
-{
-	"name": "Barcelona",
-	"competitionId": "{ID_COMPETITION}"
-}
-
-RESULT:
-{
-  "_id": "{ID_TEAM}",
-  "name": "Barcelona",
-  "competition": "{ID_COMPETITION}",
-  "createdAt": "2019-08-07T19:27:10.117Z",
-  "updatedAt": "2019-08-07T19:27:10.117Z",
-  "__v": 0
-}
 ```
 
 ### Listagem de times
 
 ```bash
-GET: http://localhost:3333/api/teams/{ID_COMPETITION}
+GET: http://localhost:3333/api/teams
 
 RESULT:
 [
   {
-    "_id": "{ID_TEAM}",
-    "name": "Real Madrid",
-    "competition": "{ID_COMPETITION}",
-    "createdAt": "2019-08-07T19:27:00.294Z",
-    "updatedAt": "2019-08-07T19:27:00.294Z",
-    "__v": 0
-  },
-  {
-    "_id": "{ID_TEAM}",
+    "avatar": "https://png.pngtree.com/element_origin_min_pic/16/09/01/2057c825c1498c5.jpg",
+    "_id": "5d4ad9d1b4384054e9574b52",
     "name": "Barcelona",
-    "competition": "{ID_COMPETITION}",
-    "createdAt": "2019-08-07T19:27:10.117Z",
-    "updatedAt": "2019-08-07T19:27:10.117Z",
+    "competition": "5d4ac3ca881fb622aae2c2f8",
+    "createdAt": "2019-08-07T14:01:53.759Z",
+    "updatedAt": "2019-08-07T14:03:19.553Z",
     "__v": 0
   }
 ]
@@ -289,11 +471,12 @@ GET: http://localhost:3333/api/teams/{ID_TEAM}
 RESULT:
 
 {
-  "_id": "{ID_TEAM}",
-  "name": "Real Madrid",
-  "competition": "{ID_COMPETITION}",
-  "createdAt": "2019-08-07T19:27:00.294Z",
-  "updatedAt": "2019-08-07T19:27:00.294Z",
+  "avatar": "https://png.pngtree.com/element_origin_min_pic/16/09/01/2057c825c1498c5.jpg",
+  "_id": "5d5c4a62cb493a4613a35e60",
+  "name": "Barcelona",
+  "competition": "5d5c49d6cb493a4613a35e58",
+  "createdAt": "2019-08-20T19:30:42.506Z",
+  "updatedAt": "2019-08-20T19:30:42.506Z",
   "__v": 0
 }
 ```
@@ -310,56 +493,7 @@ BODY:
 	"name": "Barcelona"
 }
 
-RESULT:
-{
-  "_id": "{ID_TEAM}",
-  "name": "Barcelona",
-  "competition": "{ID_COMPETITION}",
-  "createdAt": "2019-08-07T14:01:53.759Z",
-  "updatedAt": "2019-08-07T14:03:19.553Z",
-  "__v": 0
-}
 ```
-
-### Criar uma partida
-
-```bash
-POST: http://localhost:3333/api/games
-
-BODY: 
-{
-	"playerA": {
-		"id": "{ID_PLAYER_A}"
-	},
-	"playerB": {
-		"id": "{ID_PLAYER_B}"
-	},
-	"competitionId": "{ID_COMPETITION}",
-	"round": 1
-}
-
-RESULT:
-{
-  "_id": "{ID_GAME}",
-  "competition": "{ID_COMPETITION}",
-  "players": [
-    {
-      "_id": "5d4c4f5de1e50d6176d2d06c",
-      "player": "{ID_PLAYER_A}"
-    },
-    {
-      "_id": "5d4c4f5de1e50d6176d2d06b",
-      "player": "{ID_PLAYER_B}"
-    }
-  ],
-  "valid": false,
-  "round": 1,
-  "createdAt": "2019-08-08T16:35:41.786Z",
-  "updatedAt": "2019-08-08T16:35:41.786Z",
-  "__v": 0
-}
-```
-
 ### Listagem de partidas
 
 ```bash
@@ -419,81 +553,7 @@ BODY:
 	"teamIdB": "{ID_TEAM_B}"
 }
 
-RESULT:
-{
-  "_id": "5d4c4f5de1e50d6176d2d06a",
-  "competition": "5d4b25c55865c4022761843f",
-  "players": [
-    {
-      "_id": "5d4c4f5de1e50d6176d2d06c",
-      "player": "{ID_PLAYER_A}",
-      "gol": 6,
-      "team": "{ID_TEAM_A}"
-    },
-    {
-      "_id": "5d4c4f5de1e50d6176d2d06b",
-      "player": "{ID_PLAYER_B}",
-      "gol": 4,
-      "team": "{ID_TEAM_B}"
-    }
-  ],
-  "valid": false,
-  "round": 1,
-  "createdAt": "2019-08-08T16:35:41.786Z",
-  "updatedAt": "2019-08-08T17:11:39.292Z",
-  "__v": 0
-}
 ```
-
-### Classificação do campeonato
-
-```bash
-GET: http://localhost:3333/api/classifications/{ID_COMPETITION}
-
-RESULT:
-[
-  {
-    "player": {
-      "name": "Jogador A",
-      "id": "{ID_PLAYER_A}"
-    },
-    "games": 2,
-    "win": 1,
-    "lost": 0,
-    "draw": 1,
-    "gp": 7,
-    "gc": 5,
-    "points": 4
-  },
-  {
-    "player": {
-      "name": "Jogador C",
-      "id": "{ID_PLAYER_C}"
-    },
-    "games": 1,
-    "win": 0,
-    "lost": 0,
-    "draw": 1,
-    "gp": 3,
-    "gc": 3,
-    "points": 1
-  },
-  {
-    "player": {
-      "name": "Jogador B",
-      "id": "{ID_PLAYER_B}"
-    },
-    "games": 1,
-    "win": 0,
-    "lost": 1,
-    "draw": 0,
-    "gp": 2,
-    "gc": 4,
-    "points": 0
-  }
-]
-```
-
 ### Criar jogo
 Serviço gera uma partida entre dois jogadores que ainda não se enfrentaram e estão com menos jogos que os demais.
 

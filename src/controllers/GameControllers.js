@@ -119,5 +119,29 @@ module.exports = {
         await game.save()
 
         return res.json(game)
+    },
+
+    async approve(req, res) {
+
+        const { gameId } = req.body
+
+        const game = await Game.findById(gameId)
+        if(!game) {
+            return res.status(400).json({ error: 'Game not exist' })
+        }
+
+        for(i=0; i<2; i++) {
+            if (!game.players[i].gol) {
+                return res.status(400).json({ error: 'Gol is required' })
+            }
+            if (!game.players[i].team) {
+                return res.status(400).json({ error: 'Team is required' })
+            }
+        }
+
+        game.valid = true
+        await game.save()
+
+        return res.json(game)
     }
 }

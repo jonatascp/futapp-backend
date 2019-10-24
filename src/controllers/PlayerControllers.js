@@ -1,33 +1,45 @@
 const Player = require('../models/Player')
 const Competition = require('../models/Competition')
+const CompetitionPlayer = require('../models/CompetitionPlayer')
 
 module.exports = {
 
     async index(req, res) {
+        
+        const players = await Player.find()
+        return res.json(players)
+    },
+    
+    async get(req, res) {
+        
+        const { playerId } = req.params
+        const player = await Player.findById(playerId)
+        if(!player) {
+            return res.status(400).json({ error: 'Player not exist' })
+        }
+        return res.json(player)
+    },
+
+    async notcompetition(req, res) {
         
         const { competitionId } = req.params
         const competition = await Competition.findById(competitionId)
         if (!competition) {
             return res.status(400).json({ error: 'Competition not exist' })
         }
-        const players = await Player.find({ 
-            competition:  competition._id 
+
+        const competitionPlayerList = await CompetitionPlayer.find({
+            competition: competitionId
         })
-        return res.json(players)
-    },
-    
-    async get(req, res) {
-        
-        const { competitionId, playerId } = req.params
-        const competition = await Competition.findById(competitionId)
-        if (!competition) {
-            return res.status(400).json({ error: 'Competition not exist' })
-        }
-        const player = await Player.findOne({ 
-            competition:  competition._id,
-            _id: playerId
+        const listPlayerId = competitionPlayerList.map(data => {
+            return data.player
         })
-        return res.json(player)
+
+        const playerNotCompetition = await Player.find({ 
+            _id: { "$nin": listPlayerId } 
+        })
+
+        return res.json(playerNotCompetition)
     },
 
     async store(req, res) {
