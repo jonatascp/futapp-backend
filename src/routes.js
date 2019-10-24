@@ -17,13 +17,13 @@ routes.put('/api/competitions', CompetitionController.update)
 routes.get('/api/competitions/:competitionId', CompetitionController.get)
 
 routes.get('/api/players', PlayerController.index)
-routes.get('/api/players/:competitionId/:playerId', PlayerController.get)
+routes.get('/api/players/:playerId', PlayerController.get)
 routes.post('/api/players', PlayerController.store)
 routes.put('/api/players', PlayerController.update)
 routes.get('/api/players-not-exist/:competitionId', PlayerController.notcompetition)
 
 routes.get('/api/teams', TeamController.index)
-routes.get('/api/teams/:competitionId/:teamId', TeamController.get)
+routes.get('/api/teams/:teamId', TeamController.get)
 routes.post('/api/teams', TeamController.store)
 routes.put('/api/teams', TeamController.update)
 

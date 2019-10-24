@@ -47,12 +47,9 @@ module.exports = {
 
     async get(req, res) {
 
-        const { teamId, competitionId } = req.params
+        const { teamId } = req.params
         
-        const team = await Team.findOne({
-            _id: teamId,
-            competition: competitionId
-        })
+        const team = await Team.findById(teamId)
         if(!team) {
             return res.status(400).json({ error: 'Team not exist' })
         }
